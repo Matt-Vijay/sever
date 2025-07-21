@@ -1,10 +1,10 @@
-import { SignUp } from "@clerk/nextjs";
+import { SignIn } from "@clerk/nextjs";
 import React from "react";
 
-const SignUpPage = () => {
+const SignInPage = () => {
   return (
     <div className="flex-grow flex items-center justify-center">
-      <SignUp
+      <SignIn
         appearance={{
           variables: {
             colorPrimary: '#FF4040',
@@ -27,4 +27,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

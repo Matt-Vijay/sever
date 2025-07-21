@@ -6,14 +6,11 @@ import { SplineScene } from "@/components/ui/splite";
 import { usePathname } from "next/navigation";
 import { CanvasRevealEffect } from "@/components/ui/sign-in-flow-1";
 import { useState, useEffect } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/home";
   const [isMounted, setIsMounted] = useState(false);
@@ -57,5 +54,17 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+  );
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <ClerkProvider>
+      <RootLayoutContent>{children}</RootLayoutContent>
+    </ClerkProvider>
   );
 }

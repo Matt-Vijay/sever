@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const AnimatedNavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const defaultTextColor = 'text-gray-300';
@@ -88,7 +90,23 @@ export function MiniNavbar() {
           ))}
         </nav>
 
-        <div className="hidden sm:flex items-center gap-2 sm:gap-3"></div>
+        <div className="hidden sm:flex items-center gap-2 sm:gap-3">
+          <SignedOut>
+            <SignInButton>
+              <Link href="/signin" className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto text-center">
+                Sign In
+              </Link>
+            </SignInButton>
+            <SignUpButton>
+              <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto flex items-center justify-center">
+                Get Started
+              </Link>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
 
         <button className="sm:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none" onClick={toggleMenu} aria-label={isOpen ? 'Close Menu' : 'Open Menu'}>
           {isOpen ? (
@@ -111,7 +129,23 @@ export function MiniNavbar() {
             </Link>
           ))}
         </nav>
-        <div className="flex flex-col items-center space-y-4 mt-4 w-full"></div>
+        <div className="flex flex-col items-center space-y-4 mt-4 w-full">
+          <SignedOut>
+            <SignInButton>
+              <Link href="/signin" className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto text-center">
+                Sign In
+              </Link>
+            </SignInButton>
+            <SignUpButton>
+              <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto flex items-center justify-center">
+                Get Started
+              </Link>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
       </div>
     </header>
   );
