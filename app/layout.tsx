@@ -6,8 +6,6 @@ import { SplineScene } from "@/components/ui/splite";
 import { usePathname } from "next/navigation";
 import { CanvasRevealEffect } from "@/components/ui/sign-in-flow-1";
 import { useState, useEffect } from "react";
-import { ClerkProvider } from "@clerk/nextjs";
-
 const inter = Inter({ subsets: ["latin"] });
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
@@ -62,9 +60,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <ClerkProvider>
-      <RootLayoutContent>{children}</RootLayoutContent>
-    </ClerkProvider>
-  );
+  return <RootLayoutContent>{children}</RootLayoutContent>;
 }
