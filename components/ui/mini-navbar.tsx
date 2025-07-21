@@ -26,11 +26,6 @@ export function MiniNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [headerShapeClass, setHeaderShapeClass] = useState('rounded-full');
   const shapeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -98,23 +93,24 @@ export function MiniNavbar() {
         </nav>
 
         <div className="hidden sm:flex items-center gap-2 sm:gap-3 pl-6">
-          {isMounted && (
-            <>
-              <SignedOut>
-                <SignInButton>
-                  <AnimatedNavLink href="/signin">Sign In</AnimatedNavLink>
-                </SignInButton>
-                <SignUpButton>
-                  <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-white bg-white/5 backdrop-blur-lg border border-white/20 rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] w-full sm:w-auto flex items-center justify-center">
-                    Get Started
-                  </Link>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </>
-          )}
+          <SignedOut>
+            <SignInButton mode="redirect">
+              <div className="group relative inline-block overflow-hidden h-5 text-sm cursor-pointer">
+                <div className="flex flex-col transition-transform duration-400 ease-out transform group-hover:-translate-y-1/2">
+                  <span className='text-gray-300'>Sign In</span>
+                  <span className='text-white'>Sign In</span>
+                </div>
+              </div>
+            </SignInButton>
+            <SignUpButton mode="redirect">
+              <div className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-white bg-white/5 backdrop-blur-lg border border-white/20 rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] w-full sm:w-auto flex items-center justify-center cursor-pointer">
+                Get Started
+              </div>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
 
         <button className="sm:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none" onClick={toggleMenu} aria-label={isOpen ? 'Close Menu' : 'Open Menu'}>
@@ -140,15 +136,15 @@ export function MiniNavbar() {
         </nav>
         <div className="flex flex-col items-center space-y-4 mt-4 w-full">
           <SignedOut>
-            <SignInButton>
-              <Link href="/signin" className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto text-center">
+            <SignInButton mode="redirect">
+              <div className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto text-center cursor-pointer">
                 Sign In
-              </Link>
+              </div>
             </SignInButton>
-            <SignUpButton>
-              <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto flex items-center justify-center">
+            <SignUpButton mode="redirect">
+              <div className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto flex items-center justify-center cursor-pointer">
                 Get Started
-              </Link>
+              </div>
             </SignUpButton>
           </SignedOut>
           <SignedIn>
