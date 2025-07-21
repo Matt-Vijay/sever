@@ -10,10 +10,10 @@ export async function POST(request: Request) {
 
   try {
     // Create a test account with Ethereal
-    let testAccount = await nodemailer.createTestAccount();
+    const testAccount = await nodemailer.createTestAccount();
 
     // Create a transporter
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
       port: 587,
       secure: false, // true for 465, false for other ports
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     });
 
     // Send mail with defined transport object
-    let info = await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: '"Sever Waitlist" <noreply@sever.software>',
       to: "matthew@sever.software",
       subject: "New Waitlist Signup",

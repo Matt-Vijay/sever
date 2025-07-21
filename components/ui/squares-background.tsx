@@ -1,5 +1,5 @@
 "use client"
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect } from "react"
 
 interface SquaresProps {
   direction?: "right" | "left" | "up" | "down" | "diagonal"

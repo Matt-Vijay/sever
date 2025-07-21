@@ -27,7 +27,7 @@ export default function HomePage() {
         const data = await response.json();
         setMessage(data.error || "An error occurred. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setMessage("An error occurred. Please try again.");
     }
   };
