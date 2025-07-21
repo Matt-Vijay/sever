@@ -323,9 +323,8 @@ const ShaderMaterial = ({
       fragmentShader: source,
       uniforms: getUniforms(),
       glslVersion: THREE.GLSL3,
-      blending: THREE.CustomBlending,
-      blendSrc: THREE.SrcAlphaFactor,
-      blendDst: THREE.OneFactor,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
     });
 
     return materialObject;
