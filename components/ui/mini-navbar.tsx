@@ -26,6 +26,11 @@ export function MiniNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [headerShapeClass, setHeaderShapeClass] = useState('rounded-full');
   const shapeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -52,7 +57,7 @@ export function MiniNavbar() {
   }, [isOpen]);
 
   const logoElement = (
-    <Link href="/home" className="flex items-center gap-2">
+    <Link href="/home" className="flex items-center gap-2 pr-6">
         <span className="text-white text-lg font-medium">Sever</span>
         <div className="relative w-5 h-5 flex items-center justify-center">
           <span className="absolute w-1.5 h-1.5 rounded-full bg-gray-200 top-0 left-1/2 transform -translate-x-1/2 opacity-80"></span>
@@ -64,6 +69,8 @@ export function MiniNavbar() {
   );
 
   const navLinksData = [
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
     { label: 'Manifesto', href: '/manifesto' },
     { label: 'Telemetry', href: '/telemetry' },
     { label: 'Careers', href: '/careers' },
@@ -77,7 +84,7 @@ export function MiniNavbar() {
                        border border-[#333] bg-[#1f1f1f57]
                        w-[calc(100%-2rem)] sm:w-auto
                        transition-[border-radius] duration-0 ease-in-out pointer-events-none`}>
-      <div className="flex items-center justify-between w-full gap-x-6 sm:gap-x-8 pointer-events-auto">
+      <div className="flex items-center justify-between w-full gap-x-6 sm:gap-x-6 pointer-events-auto whitespace-nowrap">
         <div className="flex items-center">
            {logoElement}
         </div>
@@ -90,22 +97,24 @@ export function MiniNavbar() {
           ))}
         </nav>
 
-        <div className="hidden sm:flex items-center gap-2 sm:gap-3">
-          <SignedOut>
-            <SignInButton>
-              <Link href="/signin" className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto text-center">
-                Sign In
-              </Link>
-            </SignInButton>
-            <SignUpButton>
-              <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto flex items-center justify-center">
-                Get Started
-              </Link>
-            </SignUpButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+        <div className="hidden sm:flex items-center gap-2 sm:gap-3 pl-6">
+          {isMounted && (
+            <>
+              <SignedOut>
+                <SignInButton>
+                  <AnimatedNavLink href="/signin">Sign In</AnimatedNavLink>
+                </SignInButton>
+                <SignUpButton>
+                  <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-white bg-white/5 backdrop-blur-lg border border-white/20 rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] w-full sm:w-auto flex items-center justify-center">
+                    Get Started
+                  </Link>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </>
+          )}
         </div>
 
         <button className="sm:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none" onClick={toggleMenu} aria-label={isOpen ? 'Close Menu' : 'Open Menu'}>
