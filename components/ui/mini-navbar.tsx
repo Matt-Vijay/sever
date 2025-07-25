@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   SignInButton,
@@ -12,7 +13,9 @@ import {
 } from '@clerk/nextjs';
 
 const AnimatedNavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
-  const defaultTextColor = 'text-gray-300';
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  const defaultTextColor = isActive ? 'text-white' : 'text-gray-300';
   const hoverTextColor = 'text-white';
   const textSizeClass = 'text-sm';
 
@@ -83,14 +86,14 @@ export function MiniNavbar() {
                        pl-6 pr-6 py-3 backdrop-blur-sm
                        ${headerShapeClass}
                        border border-[#333] bg-[#1f1f1f57]
-                       w-[calc(100%-2rem)] sm:w-auto
-                       transition-[border-radius] duration-0 ease-in-out pointer-events-none`}>
-      <div className="flex items-center justify-between w-full gap-x-6 sm:gap-x-6 pointer-events-auto whitespace-nowrap">
+                       w-[calc(100%-2rem)] md:w-auto
+                       transition-[border-radius] duration-0 ease-in-out`}>
+      <div className="flex items-center justify-between w-full gap-x-6 md:gap-x-6 pointer-events-auto whitespace-nowrap">
         <div className="flex items-center">
            {logoElement}
         </div>
 
-        <nav className="hidden sm:flex items-center space-x-4 sm:space-x-6 text-sm">
+        <nav className="hidden md:flex items-center space-x-4 md:space-x-6 text-sm">
           {navLinksData.map((link) => (
             <AnimatedNavLink key={link.href} href={link.href}>
               {link.label}
@@ -98,7 +101,7 @@ export function MiniNavbar() {
           ))}
         </nav>
 
-        <div className="hidden sm:flex items-center gap-2 sm:gap-3 pl-6">
+        <div className="hidden md:flex items-center gap-2 md:gap-3 pl-6">
           <SignedOut>
             <Link href="/signin" className="group relative inline-block overflow-hidden h-5 text-sm cursor-pointer">
               <div className="flex flex-col transition-transform duration-400 ease-out transform group-hover:-translate-y-1/2">
@@ -106,7 +109,7 @@ export function MiniNavbar() {
                 <span className='text-white'>Sign In</span>
               </div>
             </Link>
-            <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-white bg-white/5 backdrop-blur-lg border border-white/20 rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] w-full sm:w-auto flex items-center justify-center cursor-pointer">
+            <Link href="/signup" className="relative z-10 px-4 py-2 md:px-3 text-xs md:text-sm font-semibold text-white bg-white/5 backdrop-blur-lg border border-white/20 rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] w-full md:w-auto flex items-center justify-center cursor-pointer">
               Get Started
             </Link>
           </SignedOut>
@@ -115,7 +118,7 @@ export function MiniNavbar() {
           </SignedIn>
         </div>
 
-        <button className="sm:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none" onClick={toggleMenu} aria-label={isOpen ? 'Close Menu' : 'Open Menu'}>
+        <button className="md:hidden flex items-center justify-center w-8 h-8 text-gray-300 focus:outline-none" onClick={toggleMenu} aria-label={isOpen ? 'Close Menu' : 'Open Menu'}>
           {isOpen ? (
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           ) : (
@@ -123,13 +126,14 @@ export function MiniNavbar() {
           )}
         </button>
       </div>
-      <div className={`sm:hidden flex flex-col items-center w-full transition-all ease-in-out duration-300 overflow-hidden
-                       ${isOpen ? 'max-h-[1000px] opacity-100 pt-4' : 'max-h-0 opacity-0 pt-0 pointer-events-none'}`}>
+      <div className={`md:hidden flex flex-col items-center w-full transition-all ease-in-out duration-300 overflow-hidden z-50
+                       ${isOpen ? 'max-h-[1000px] opacity-100 pt-4 pointer-events-auto' : 'max-h-0 opacity-0 pt-0 pointer-events-none'}`}>
         <nav className="flex flex-col items-center space-y-4 text-base w-full">
           {navLinksData.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              onClick={toggleMenu}
               className="text-gray-300 hover:text-white transition-colors w-full text-center"
               >
               {link.label}
@@ -138,15 +142,15 @@ export function MiniNavbar() {
         </nav>
         <div className="flex flex-col items-center space-y-4 mt-4 w-full">
           <SignedOut>
-            <Link href="/signin" className="px-4 py-2 sm:px-3 text-xs sm:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full sm:w-auto text-center cursor-pointer">
+            <Link href="/signin" onClick={toggleMenu} className="px-4 py-2 md:px-3 text-xs md:text-sm border border-[#333] bg-[rgba(31,31,31,0.62)] text-gray-300 rounded-full hover:border-white/50 hover:text-white transition-colors duration-200 w-full md:w-auto text-center cursor-pointer">
               Sign In
             </Link>
-            <Link href="/signup" className="relative z-10 px-4 py-2 sm:px-3 text-xs sm:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full sm:w-auto flex items-center justify-center cursor-pointer">
+            <Link href="/signup" onClick={toggleMenu} className="relative z-10 px-4 py-2 md:px-3 text-xs md:text-sm font-semibold text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-gray-200 hover:to-gray-400 transition-all duration-200 w-full md:w-auto flex items-center justify-center cursor-pointer">
               Get Started
             </Link>
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <UserButton afterSignOutUrl="/" userProfileUrl="/user" />
           </SignedIn>
         </div>
       </div>

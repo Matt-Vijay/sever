@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 const manifestoText = [
   {
@@ -101,6 +102,7 @@ const manifestoText = [
 
 export default function ManifestoPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useIsDesktop();
 
   return (
     <div className="bg-black text-white" ref={containerRef}>
@@ -109,7 +111,7 @@ export default function ManifestoPage() {
         className="fixed top-0 left-0 h-1 bg-white z-20"
       />
       <div className="relative">
-        <BackgroundBeams className="fixed" />
+        {isDesktop && <BackgroundBeams className="fixed" />}
         <div className="relative z-10 max-w-4xl mx-auto p-4 pt-32 pb-96">
           {manifestoText.map((section, index) => (
             <div key={index} className="mb-12">
