@@ -3,10 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import {
-  SignInButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,

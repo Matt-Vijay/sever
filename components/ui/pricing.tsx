@@ -31,7 +31,6 @@ interface PricingProps {
 
 export function Pricing({
   plans,
-  title = "Simple, Transparent Pricing",
   description = `Choose the plan that works for you
 All plans include access to our platform, lead generation tools, and dedicated support.`,
 }: PricingProps) {

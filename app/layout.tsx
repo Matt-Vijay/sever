@@ -15,14 +15,7 @@ import { LoadingProvider, useLoading } from '@/contexts/LoadingContext';
 const inter = Inter({ subsets: ["latin"] });
 
 function SiteLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
-  const [isMounted, setIsMounted] = useState(false);
   const { isLoading, setIsLoading } = useLoading();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   return (
     <>
